@@ -1,0 +1,10 @@
+name: Branch CI Run
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test ci run
+        run: echo 'test running!'
