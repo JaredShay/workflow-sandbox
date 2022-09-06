@@ -1,0 +1,14 @@
+name: Post to Slack
+
+on:
+  workflow_run:
+    workflows: [Branch CI Run]
+    types:
+      - completed
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: post to slack
+        run: echo 'running!'
