@@ -11,6 +11,11 @@ jobs:
   post:
     runs-on: ubuntu-latest
     steps:
+      - name: Fetch Migration Status
+        id: fetchMigrationStatus
+        uses: JamesIves/fetch-api-data-action@v2
+        with:
+          endpoint: https://info-reader-sandbox.herokuapp.com/health_check
       - name: Set Migration Text
         id: setMigrationText
         run: |
