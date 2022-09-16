@@ -14,17 +14,23 @@ jobs:
       - name: Set Migration Text
         id: setMigrationText
         run: |
-          echo "Setting pending migration message"
-          LATEST_STR="2022-08-25T16:39:29+00:00"
+          echo "Setting days since last migration"
+          LATEST_STR=${{ fromJson(env.fetch-api-data).status.latest_migration_date }}
           LATEST=`date -d "$LATEST_STR" +%s`
           TODAY=`date --utc +%s`
           SECS_P_DAY=86400
           DAYS_SINCE_LAST_MIGRATION=$((($TODAY - $LATEST)/$SECS_P_DAY ))
+          echo "test"
+          echo $DAYS_SINCE_LAST_MIGRATION
+          echo "after test"
           echo ::set-output name=days_since_last_migration::$DAYS_SINCE_LAST_MIGRATION
+          echo "Setting shortened github SHA"
+          SHA_SHORT=`echo ${{ github.event.workflow_run.head_sha }} | cut -c1-8`
+          echo ::set-output name=sha_short::$SHA_SHORT
+
       - name: post to slack
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
           echo "Days since last migration"
-          echo '${{ toJSON(github) }}'
           echo ${{ steps.setMigrationText.outputs.days_since_last_migration }}
