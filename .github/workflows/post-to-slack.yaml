@@ -20,7 +20,7 @@ jobs:
         id: setMigrationText
         run: |
           echo "Setting days since last migration"
-          LATEST_STR=${{ fromJson(env.fetch-api-data).status.latest_migration_date }}
+          LATEST_STR=${{ fromJson(env.fetch-api-data).latest_migration_date }}
           echo "Latest migration string:"
           echo $LATEST_STR
           LATEST=`date -d "$LATEST_STR" +%s`
