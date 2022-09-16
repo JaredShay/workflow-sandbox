@@ -26,4 +26,5 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
           echo "Days since last migration"
+          echo '${{ toJSON(github) }}'
           echo ${{ steps.setMigrationText.outputs.days_since_last_migration }}
