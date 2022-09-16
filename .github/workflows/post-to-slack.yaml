@@ -21,8 +21,14 @@ jobs:
         run: |
           echo "Setting days since last migration"
           LATEST_STR=${{ fromJson(env.fetch-api-data).status.latest_migration_date }}
+          echo "Latest migration string:"
+          echo $LATEST_STR
           LATEST=`date -d "$LATEST_STR" +%s`
+          echo "latest parsed"
+          echo $LATEST
           TODAY=`date --utc +%s`
+          echo "today parsed"
+          echo $TODAY
           SECS_P_DAY=86400
           DAYS_SINCE_LAST_MIGRATION=$((($TODAY - $LATEST)/$SECS_P_DAY ))
           echo "test"
@@ -34,8 +40,8 @@ jobs:
           echo ::set-output name=sha_short::$SHA_SHORT
 
       - name: post to slack
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
           echo "Days since last migration"
           echo ${{ steps.setMigrationText.outputs.days_since_last_migration }}
+          echo "Short SHA"
+          echo ${{ steps.setMigrationText.outputs.sha_short }}
