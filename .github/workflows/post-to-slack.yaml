@@ -41,11 +41,14 @@ jobs:
           echo "Shortened sha"
           echo $SHA_SHORT
           echo "setting short commit message"
-          echo "message-"
           MESSAGE="${{ github.event.workflow_run.head_commit.message }}"
-          SHORT_MESSAGE=`echo $MESSAGE |head -n1`
-          echo $SHORT_MESSAGE
+          echo "message-"
+          echo $MESSAGE
           echo "-message"
+          SHORT_MESSAGE=`echo $MESSAGE |head -n1`
+          echo "shortmessage-"
+          echo $SHORT_MESSAGE
+          echo "-shortmessage"
           echo ::set-output name=head_commit_message::$SHORT_MESSAGE
 
       - name: post to slack
