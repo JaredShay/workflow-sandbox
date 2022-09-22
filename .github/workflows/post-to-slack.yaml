@@ -51,6 +51,11 @@ jobs:
           echo "-shortmessage"
           echo ::set-output name=head_commit_message::$SHORT_MESSAGE
 
+      - name: Dump github context
+        run: |
+          echo "Dumping context for inspection"
+          echo "${{toJSON(github.event)}}"
+
       - name: post to slack
         run: |
           echo "Days since last migration"
