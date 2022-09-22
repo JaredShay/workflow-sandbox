@@ -43,11 +43,10 @@ jobs:
           echo "setting short commit message"
           echo "message-"
           MESSAGE="${{ github.event.workflow_run.head_commit.message }}"
-          echo $MESSAGE
+          SHORT_MESSAGE=`echo $MESSAGE |head -n1`
+          echo $SHORT_MESSAGE
           echo "-message"
-          #MESSAGE=`echo ${{ github.event.workflow_run.head_commit.message }} | head -1`
-          #echo $MESSAGE
-          #echo ::set-output name=head_commit_message::$MESSAGE
+          echo ::set-output name=head_commit_message::$SHORT_MESSAGE
 
       - name: post to slack
         run: |
