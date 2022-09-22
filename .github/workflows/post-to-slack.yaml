@@ -38,7 +38,6 @@ jobs:
           echo "Setting shortened github SHA"
           SHA_SHORT=`echo ${{ github.event.workflow_run.head_sha }} | cut -c1-8`
           echo ::set-output name=sha_short::$SHA_SHORT
-
           echo "setting short commit message"
           MESSAGE=`echo ${{ github.event.workflow_run.head_commit.message }} | head -1`
           echo $MESSAGE
