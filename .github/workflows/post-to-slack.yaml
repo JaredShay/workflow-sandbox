@@ -42,7 +42,8 @@ jobs:
           echo $SHA_SHORT
           echo "setting short commit message"
           echo "message-"
-          echo ${{ github.event.workflow_run.head_commit.message }}
+          MESSAGE=${{ github.event.workflow_run.head_commit.message }}
+          echo $MESSAGE
           echo "-message"
           #MESSAGE=`echo ${{ github.event.workflow_run.head_commit.message }} | head -1`
           #echo $MESSAGE
