@@ -40,10 +40,10 @@ jobs:
           echo ::set-output name=sha_short::$SHA_SHORT
           echo "Shortened sha"
           echo $SHA_SHORT
-          #echo "setting short commit message"
-          #echo "message-"
-          #echo ${{ github.event.workflow_run.head_commit.message }}
-          #echo "-message"
+          echo "setting short commit message"
+          echo "message-"
+          echo ${{ github.event.workflow_run.head_commit.message }}
+          echo "-message"
           #MESSAGE=`echo ${{ github.event.workflow_run.head_commit.message }} | head -1`
           #echo $MESSAGE
           #echo ::set-output name=head_commit_message::$MESSAGE
