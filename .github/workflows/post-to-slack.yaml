@@ -7,9 +7,10 @@ on:
       - completed
 
 jobs:
-
   post:
     runs-on: ubuntu-latest
+    outputs:
+      display_title: ${{ steps.setMigrationText.outputs.display_title }}
     steps:
       - name: Fetch Migration Status
         id: fetchMigrationStatus
@@ -41,15 +42,7 @@ jobs:
           echo "Shortened sha"
           echo $SHA_SHORT
           echo "setting short commit message"
-          MESSAGE="${{ github.event.workflow_run.head_commit.message }}"
-          echo "message-"
-          echo $MESSAGE
-          echo "-message"
-          SHORT_MESSAGE=`echo $MESSAGE |head -n1`
-          echo "shortmessage-"
-          echo $SHORT_MESSAGE
-          echo "-shortmessage"
-          echo ::set-output name=head_commit_message::$SHORT_MESSAGE
+          echo ::set-output name=head_commit_message::${{ github.event.workflow_run.display_title }}
 
       - name: Dump github context
         run: |
@@ -62,3 +55,12 @@ jobs:
           echo ${{ steps.setMigrationText.outputs.days_since_last_migration }}
           echo "Short SHA"
           echo ${{ steps.setMigrationText.outputs.sha_short }}
+
+  another_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use output from previous job
+        run: |
+          echo "Accessing var from previous job"
+          echo ${{ needs.post.outputs.display_title }}
+          echo "after"
