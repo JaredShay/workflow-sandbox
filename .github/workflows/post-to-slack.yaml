@@ -42,7 +42,7 @@ jobs:
           echo "Shortened sha"
           echo $SHA_SHORT
           echo "setting short commit message"
-          echo ::set-output name=head_commit_message::${{ github.event.workflow_run.display_title }}
+          echo ::set-output name=display_title::${{ github.event.workflow_run.display_title }}
 
       - name: Dump github context
         run: |
