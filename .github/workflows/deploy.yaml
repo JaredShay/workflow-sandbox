@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      git-ref:
+        description: Git ref to deploy (optional- defaults to master)
+        required: false
+      environment:
+        description: Environment to deploy to (staging|production) (required)
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout latest git-ref
+       uses: actions/checkout@v2
+       if: github.event.inputs.git-ref == ''
+     - name: Checkout custom git-ref
+       uses: actions/checkout@v2
+       if: github.event.inputs.git-ref != ''
+       with:
+         ref: ${{ github.event.inputs.git-ref }}
+     - name: Fake Deploy Script
+       run: echo 'Deploying ${{github.event.inputs.git-ref}}'
