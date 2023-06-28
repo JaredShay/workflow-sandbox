@@ -23,4 +23,6 @@ jobs:
        with:
          ref: ${{ github.event.inputs.git-ref }}
      - name: Fake Deploy Script
-       run: echo 'Deploying ${{github.event.inputs.git-ref}}'
+       run: |
+        REF=${{ github.event.inputs.git-ref != '' && github.event.inputs.git-ref || 'master' }}
+        echo "Deploying $REF to ${{github.event.inputs.environment}}"
